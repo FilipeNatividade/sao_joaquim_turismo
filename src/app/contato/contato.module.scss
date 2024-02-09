@@ -1,0 +1,49 @@
+.essential_services {
+  width: 100%;
+}
+
+.form_box {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: space-between;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  gap: 20px;
+}
+
+.form > input {
+  background-color: #fff;
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 15px;
+}
+
+.form > textarea {
+  background-color: #fff;
+  width: 100%;
+  border-radius: 10px;
+  padding-left: 15px;
+}
+
+.partner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 45%;
+}
+
+.partner > a {
+  padding: 10px 50px;
+  background-color: var(--color_belvedere);
+  color:var(--color_florada_clarinho);
+  text-align: center;
+  border-radius: 10px;
+  max-width: 200px;
+}

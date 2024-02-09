@@ -92,35 +92,6 @@
   font-size: 16px;
 }
 
-.text_box > div > a {
-  color: var(--color_verde_dark);
-  cursor: pointer;
-}
-
-.text_box > div > a:link {
-  color: #fc9a5d;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-.text_box > div > a:visited {
-  color: #fc9a5d;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-.text_box > div > a:hover {
-  color: #fc9a5d;
-  background-color: transparent;
-  text-decoration: underline;
-}
-
-.text_box > div > a:active {
-  color: #fc9a5d;
-  background-color: transparent;
-  text-decoration: underline;
-}
-
 .accordion_box {
   display: flex;
   flex-direction: column;
@@ -153,10 +124,6 @@
   }
 }
 
-.accordion_content{
-  width: 100%;
-}
-
 .accordion_box > h2 {
   color: #fff;
   font-size: 34px;
@@ -171,90 +138,19 @@
   flex-direction: column;
 }
 
-.accordion {
-  background-color: #9e1619;
-  border-top: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  border-radius: 0;
-  color: #fff;
-  box-shadow: none;
-  border-radius: 0 !important;
-}
-
-.accordion::before {
-  background-color: transparent;
-}
-
-.svg {
-  fill: #fff !important;
-}
-
-.imgBottom {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.box_title_inferior {
-  position: absolute;
-  color: #fff;
-  text-align: center;
-  font-family: 'Gotham', sans-serif;
-  margin-bottom: 25px;
+.bottom_text {
+  padding: var(--padding_mobile);
+  font-size: 18px;
 }
 
 @media (min-width: 800px) {
-  .box_title_inferior {
-    margin-bottom: 10px;
+  .bottom_text {
+    padding: var(--padding_tablet);
   }
 }
 
 @media (min-width: 1000px) {
-  .box_title_inferior {
-    margin-bottom: -40px;
-  }
-}
-
-.pre_title_inferior {
-  font-size: 21px;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  font-weight: 600;
-  display: block;
-}
-
-@media (min-width: 800px) {
-  .pre_title_inferior {
-    margin-bottom: -30px;
-  }
-}
-
-@media (min-width: 1000px) {
-  .pre_title_inferior {
-    margin-bottom: -40px;
-  }
-}
-
-.title_inferior {
-  font-size: 50px;
-  color: #fff;
-  font-weight: 800;
-}
-
-@media (min-width: 800px) {
-  .title_inferior {
-    font-size: 100px;
-  }
-}
-
-@media (min-width: 1000px) {
-  .title_inferior {
-    font-size: 130px;
+  .bottom_text {
+    padding: var(--padding_desktop);
   }
 }
