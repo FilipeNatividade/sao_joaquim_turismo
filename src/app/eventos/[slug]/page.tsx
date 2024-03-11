@@ -1,49 +1,43 @@
-import React from 'react'
-import S from './lista.module.scss'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import { Detail } from '@/components/Detail/layout'
 import { CoverSlide } from '@/components/coverSlide/layout'
 import { Enphasis } from '@/components/Enphasis/layout'
-
-const content =
-    [{
-        src: 'https://picsum.photos/200/300',
-        title: 'titulo 1'
-    },
-    {
-        src: 'https://picsum.photos/200/300',
-        title: 'titulo 1'
-    },
-    {
-        src: 'https://picsum.photos/200/300',
-        title: 'titulo 1'
-    },
-    {
-        src: 'https://picsum.photos/200/300',
-        title: 'titulo 1'
-    },
-    {
-        src: 'https://picsum.photos/200/300',
-        title: 'titulo 1'
-    }]
+import { Fetcher } from '@/api/server'
+import { QUERY, QUERY_EVENTO } from '../query'
+import { Navigation } from '@/components/Navigation/layout'
 
 
-type DetalheProps = {
-    params: {
-        slug: string
+const Page = ({ params }: any) => {
+
+    const [data, setData] = useState<any>(null)
+    const [dataFilter, setDataFilter] = useState<any>(null)
+
+    const getData = async () => {
+        const response = await Fetcher(QUERY)
+        setData(response?.findPaginaEventosSingleton?.data)
     }
-}
 
-const Page = ({ params }: DetalheProps) => {
+    const getDataFilter = async () => {
+        const response = await Fetcher(QUERY_EVENTO('slug', params.slug))
+        const responseFilter = response?.queryEventoContents
+        setDataFilter(responseFilter)
+    }
 
-
+    useEffect(() => {
+        getData()
+        getDataFilter()
+    }, [])
 
     return (
-        <div >
-            <CoverSlide content={content} />
-            <main className={`limited_container padding_container  ${S.main}`}>
-                <Detail content={params.slug} />
-                <Enphasis />
-            </main>
+        <div  >
+            {data && <CoverSlide content={data?.banners?.iv} />}
+            {dataFilter && <Detail content={dataFilter[0]?.data} />}
+            <Enphasis />
+            {dataFilter && <Navigation local='Eventos'
+                category={dataFilter[0]?.data?.nome?.iv}
+            />}
         </div>
     )
 }

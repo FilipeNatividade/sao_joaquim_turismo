@@ -1,4 +1,6 @@
-import React from 'react';
+'use client'
+
+import React, { useEffect, useState } from 'react';
 import { Enphasis } from '@/components/Enphasis/layout';
 import { CoverSlide } from '@/components/coverSlide/layout';
 import { Fetcher } from '@/api/server';
@@ -8,81 +10,114 @@ import { SlideTwo } from '@/components/CustomSlides/layout';
 import { QUERY } from './query';
 import { Navigation } from '@/components/Navigation/layout';
 import { TitlePage } from '@/components/TitlePage/layout';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import Typography from '@mui/material/Typography';
+import { CustomAccordion } from '@/components/CustomAccordion/layout';
 
 
-const page = async () => {
+const page = () => {
+  const [data, setData] = useState<any>(null)
 
+  const getData = async () => {
     const response = await Fetcher(QUERY)
-    const data = response?.findPaginaSobreSingleton?.data
+    setData(response?.findPaginaSobreSingleton?.data)
+  }
 
-    return (
-        <div
-            className={S.container}>
-            {data?.banners?.iv && <CoverSlide content={data?.banners?.iv} />}
-            <main className={` ${S.container_box}`} >
-                <TitlePage preTitle={data?.titulo?.iv} title={data?.conteudoSuperior?.iv[0]?.subTitulo} />
+  useEffect(() => {
+    getData()
+  }, [])
 
-                <section className={`limited_container ${S.history_box}`}>
-                    {data?.conteudoSuperior?.iv[0]?.imagem[0]?.url && <img
-                        src={data?.conteudoSuperior?.iv[0]?.imagem[0]?.url}
-                        alt='imagem mostrando o lugar'
-                    />}
-                    <div className={S.text_box}>
-                        <h3>{data?.conteudoSuperior?.iv[0]?.subTitulo}</h3>
-                            {parse(data?.conteudoSuperior?.iv[0]?.conteudo)}
-                    </div>
-                </section>
+  return (
+    <div
+      className={S.container}
+    >
+      {data && <CoverSlide content={data?.banners?.iv} />}
+      <main className={` ${S.container_box}`} >
 
-                <section className={`limited_container ${S.bottom_text}`}>
-                    {data?.conteudoInferior?.iv[0]?.conteudo && <div>
-                        {parse(data?.conteudoInferior?.iv[0]?.conteudo)}
-                    </div>
-                    }
-                </section>
+        <TitlePage
+          preTitle={data?.titulo?.iv}
+          title={data?.conteudoSuperior?.iv[0]?.subTitulo}
+        />
 
-                {data?.imagens?.iv && <SlideTwo content={data?.imagens?.iv} />}
+        <section
+          className={
+            `limited_container
+           ${S.history_box}`}>
+          <div className={S.text_box}>
+            {data &&
+              <h3>
+                {data?.conteudoSuperior?.iv[0]?.subTitulo}
+              </h3>}
+            {data &&
+              parse(
+                data?.conteudoSuperior?.iv[0]?.conteudo
+              )}
+          </div>
+          {data && <div
+            className={S.img_summary}
+            style={{
+              backgroundImage: `url(${data?.conteudoSuperior?.iv[0]?.imagem[0]?.url})`
+            }} />}
+        </section>
+        {data?.video && <div
+          className={`limited_container  
+        padding_container
+         ${S.video_wrapper}`}
+        >
+          <div className={`  ${S.video_box}`}>
+            <iframe
+              width="1000"
+              height="349"
+              src={`${data?.video?.iv}`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            >
+            </iframe>
+          </div>
+        </div>}
 
-                {data?.conteudoInferior?.iv[1]?.conteudo &&
-                    <section className={`limited_container ${S.bottom_text}`}>
-                        <div>
-                            {parse(data?.conteudoInferior?.iv[1]?.conteudo)}
-                        </div>
-                    </section>}
+        <section className={`limited_container ${S.bottom_text} ${S.text_box}`}>
+          {data &&
+            <div>
+              {parse(
+                data?.conteudoInferior?.iv[0]?.conteudo
+              )}
+            </div>
+          }
+        </section>
 
-                    {data?.faq?.iv && <section className={S.accordion_box}>
-          <h2>Perguntas e respostas</h2>
-          {<div  >
-            {data?.faq?.iv.map((item: any, index: number) => (
-              <Accordion key={index} className={`limited_container ${S.accordion}`} >
-                <AccordionSummary
-                  expandIcon={<ControlPointIcon className={S.svg} />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                  className={S.accordion_summary}>
-                  <Typography>
-                    {item.pergunta}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography style={{ textAlign: 'left' }}>
-                    {item.resposta}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-            ))}
-          </div>}
-        </section>}
+        {data?.imagens?.iv &&
+          <SlideTwo
+            content={data?.imagens?.iv}
+          />
+        }
 
-                <Enphasis />
-            </main>
-            <Navigation local={data?.titulo?.iv} />
-        </div>
-    )
+        {data &&
+          <section className={`limited_container ${S.bottom_text}  ${S.text_box}`}>
+            <div>
+              {parse(data?.conteudoInferior?.iv[1]?.conteudo)}
+            </div>
+
+          </section>
+        }
+
+        {data?.secoes?.iv?.length > 0 &&
+          <section
+            className={S.accordion_box}
+          >
+            <CustomAccordion
+              content={data?.secoes?.iv}
+              title='Conheça mais' />
+          </section>}
+
+        <Enphasis />
+
+      </main>
+
+      {data &&
+        <Navigation
+          local='Nossa Hitória'
+        />}
+    </div>
+  )
 }
 
 export default page

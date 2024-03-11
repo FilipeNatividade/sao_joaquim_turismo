@@ -1,26 +1,123 @@
-.main {
-    width: 100%;
-  }
-  
-  .header_box {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .slide_box {
-    width: 100%;
-  }
-  
-  .filter {
-    background-color: #fff;
-    border-radius: 8px;
-    height: 40px;
-    width: 250px;
-  }
-  
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap_mobile);
+}
 
-  .agencies_box{
-    width: 100%;
+@media (min-width: 800px) {
+  .container {
+    gap: var(--gap_tablet);
   }
+}
+
+.history_box {
+  width: 100%;
+  margin: 0 auto;
+  font-size: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+}
+.text_box {
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+  padding: var(--padding_mobile);
+}
+
+@media (min-width: 800px) {
+  .text_box {
+    padding: var(--padding_tablet);
+  }
+}
+@media (min-width: 1060px) {
+  .text_box {
+    padding: 0;
+  }
+}
+
+.text_box > h3 {
+  font-size: 32px;
+  color: var(--cor_primaria);
+}
+
+.text_box > div > p {
+  margin-top: 50px;
+  font-size: 16px;
+}
+
+.title_box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 600px) {
+  .title_box {
+    justify-content: space-between;
+  }
+}
+
+.select {
+  width: 300px;
+  height: 40px;
+
+  margin-top: var(--gap_mobile);
+}
+
+@media (min-width: 600px) {
+  .select {
+    margin-top: 0;
+  }
+}
+
+
+
+.header_box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slide_box {
+  width: 100%;
+}
+
+.slide_section{
+  width: 100%;
+}
+
+.slide_section > h2 {
+  width: 100%;
+  font-size: 34px;
+  font-size: 50px;
+  color: var(--cor_primaria);
+}
+
+.slide_section > h3 {
+  width: 100%;
+  font-size: 30px;
+  color: var(--cor_primaria);
+  margin-top: 20px;
+}
+
+.filter_box {
+  text-align: right;
+  width: 100%;
+}
+
+.filter_box > select {
+  width: 100%;
+  margin-top: 0;
+}
+
+@media (min-width:500px) {
+  .filter_box > select {
+    width: 300px;
+    
+  }
+}

@@ -1,29 +1,35 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import S from './experience.module.scss'
 import { CoverSlide } from '@/components/coverSlide/layout'
 import { Enphasis } from '@/components/Enphasis/layout';
-import { SlideThree } from '@/components/CustomSlides/layout';
 import { Fetcher } from '@/api/server';
-import { QUERY_MACRO } from './query';
+import { QUERY_MACRO_EXPERIENCE } from './query';
 import { Navigation } from '@/components/Navigation/layout';
-import { TitlePage } from '@/components/TitlePage/layout';
+import ComponentExperiences from '@/components/ComponentExperiencias/page';
 
 
 
-const Page = async () => {
+const Page = () => {
+    const [data, setData] = useState<any>();
 
-    const response = await Fetcher(QUERY_MACRO)
-    const data = response?.findPaginaMacroExperienciasSingleton?.data
+    const getData = async () => {
+        const response = await Fetcher(QUERY_MACRO_EXPERIENCE)
+        setData(response?.findPaginaMacroExperienciasSingleton?.data)
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
+
 
     return (
         <main className={S.container_expirence} >
-            <CoverSlide content={data?.banners?.iv} />
-                <TitlePage preTitle={'vivências e sensações'} title={data?.titulo?.iv} />
-                <div className={S.slide_container}>
-                    <SlideThree content={data?.carrossel?.iv} />
-                </div>
+            {data && <CoverSlide content={data?.banners?.iv} />}
+            <ComponentExperiences />
             <Enphasis />
-            <Navigation local={data?.titulo?.iv}/>
+            {data && <Navigation local='Experiências' />}
         </main>
     )
 }

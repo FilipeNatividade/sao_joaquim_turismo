@@ -1,0 +1,115 @@
+export const QUERY = `
+    query{
+        findPaginaHospedagensSingleton{
+            data{
+                banners{
+                iv{
+                    banner{
+                    preTitulo
+                    titulo
+                    subTitulo
+                    cartao
+                    imagem{
+                        url
+                    }
+                    }
+                }
+                }
+                titulo{
+                iv
+                }
+                subTitulo{
+                iv
+                }
+                conteudo{
+                iv
+            }
+        }
+    }
+  }
+`
+
+export const QUERY_LIST_ACCOMMODATION = `
+query{
+    queryHospedagemContents{
+      data{
+        nome{
+          iv
+        }
+        categoria{
+          iv
+        }
+        publico{
+          iv
+        }
+        local{
+          iv
+        }
+        resumo{
+          iv
+        }
+        resumoImagem{
+          iv{
+            url
+          }
+        }
+        descritivo{
+          iv
+        }
+        imagens{
+          iv{
+            url
+          }
+        }
+        slug{
+          iv
+        }
+        
+      }
+    }
+  }
+`
+
+export const QUERY_HOSPEDAGEM = (option: any, params: any) => {
+
+    return `
+        query{
+            queryHospedagemContents(filter:"data/${option}/iv eq '${params}'"){
+                data{
+                    nome{
+                      iv
+                    }
+                    categoria{
+                      iv
+                    }
+                    publico{
+                      iv
+                    }
+                    local{
+                      iv
+                    }
+                    resumo{
+                      iv
+                    }
+                    resumoImagem{
+                      iv{
+                        url
+                      }
+                    }
+                    descritivo{
+                      iv
+                    }
+                    imagens{
+                      iv{
+                        url
+                      }
+                    }
+                    slug{
+                      iv
+                    }
+                    
+                  }
+                }
+              }
+    `
+}

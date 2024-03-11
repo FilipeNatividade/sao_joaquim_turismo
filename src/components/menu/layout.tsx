@@ -1,15 +1,18 @@
 "use client";
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MenuItem } from './types'
 import S from './menu.module.scss'
-import brasao from '@/assets/Logo-secretaria-turismo 1.png'
-import MenuDesktop from './MenuDesktop/layout';
-import MenuMobile from './MenuMobile/layout'
+import MenuDesktop from './menuDesktop/layout';
+import MenuMobile from './menuMobile/layout';
+import { QUERY } from './query';
+import { Fetcher } from '@/api/server';
 
 
 
 const Menu = () => {
+    const [data, setData] = useState<any>()
+
     const menus: MenuItem[] = [
         {
             label: 'Início',
@@ -39,12 +42,12 @@ const Menu = () => {
             ]
         },
         {
-            label: 'Hospedagem',
+            label: 'Onde Ficar',
             rota: '/hospedagem',
             submenus: []
         },
         {
-            label: 'Culinária',
+            label: 'Nossa Gastronomia',
             rota: '/culinaria',
             submenus: []
         },
@@ -60,13 +63,22 @@ const Menu = () => {
         },
     ]
 
+    const getData = async () => {
+        const response = await Fetcher(QUERY)
+        setData(response?.findConfiguracaoSingleton?.data)
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
+
 
     return (
         <div className={` ${S.container}`} >
             <div className={S.menu_box}>
                 <div >
-                    <img className={S.coat_of_arms} src={`${brasao.src}`} alt="brazão da cidade de são joaquim, SC"
-                    />
+                    {data?.logoPrincipal?.iv[0]?.url && <img className={S.coat_of_arms} src={`${data?.logoPrincipal?.iv[0]?.url}`} alt="brazão da cidade de são joaquim, SC"
+                    />}
                 </div>
                 <MenuDesktop menus={menus} />
                 <MenuMobile menus={menus} />

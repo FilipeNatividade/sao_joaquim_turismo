@@ -4,27 +4,32 @@ export const QUERY = `
         data{
           banners{
               iv{
-                    banner{
-                        preTitulo
-                        titulo
-                        subTitulo
-                        cartao
-                        imagem{
-                            url
-                        }
+                  banner{
+                    preTitulo
+                    titulo
+                    subTitulo
+                    cartao
+                    imagem{
+                      url
                     }
+                  }
               }
             }
             tituloConteudoApresentacao{
                 iv
             }
+            imagemConteudoApresentacao{
+              iv{
+                url
+              }
+            }
             conteudo{
                 iv
             }
-            faq{
+            secoes{
                 iv{
-                    pergunta
-                    resposta
+                  pergunta
+                  resposta
                 }
             }
             titulo{

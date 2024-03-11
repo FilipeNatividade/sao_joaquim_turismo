@@ -2,18 +2,19 @@ export const QUERY = `
     query{
         findPaginaSobreSingleton{
         data{
-        banners{
-            iv{
-            banner{
-                titulo
-                subTitulo
-                cartao
-                imagem{
-                url
+            banners{
+                iv{
+                    banner{
+                      preTitulo
+                      titulo
+                      subTitulo
+                      cartao
+                      imagem{
+                        url
+                      }
+                    }
                 }
-            }
-            }
-        }
+              }
         titulo{
             iv
         }
@@ -26,6 +27,9 @@ export const QUERY = `
                 url
             }
             }
+        }
+        video{
+          iv
         }
         conteudoInferior{
             iv{
@@ -42,6 +46,15 @@ export const QUERY = `
             url
             }
         }
+        secoes{
+            iv{
+              titulo
+              conteudo
+              galeria{
+                url
+              }
+            }
+          }
         }
     }
     }

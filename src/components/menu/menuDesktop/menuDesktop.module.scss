@@ -15,8 +15,7 @@
 }
 
 .button_submenu {
-  color: #fff;
-
+  color: var(--cor_primaria);
   font-size: 14px;
   border-radius: 70px;
   height: 40px;
@@ -25,6 +24,7 @@
   align-items: center;
   font-weight: 700;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  justify-content: center;
 }
 
 @media (min-width: 1100px) {
@@ -46,13 +46,26 @@
 }
 
 .button_submenu:hover {
-  background-color: #fc9a5d;
+  background-color: var(--cor_primaria);
+  color:var(--cor_terciario)
+}
+
+.menu_item {
+  padding-left: 0;
 }
 
 .menu_submenu > div > ul {
-  background-color: transparent;
-  opacity: 0.9;
+  background-color:var(--cor_terciario) !important;
   text-align: center;
+}
+
+.menu_submenu > div {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.menu_submenu > div > ul > li:hover {
+  background-color: transparent !important;
 }
 
 .menu_submenu > div > ul > li > a {

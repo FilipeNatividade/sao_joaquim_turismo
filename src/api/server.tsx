@@ -43,3 +43,22 @@ export const Fetcher = async (QUERY: any) => {
         throw error;
     }
 };
+
+export const submit = async (data: any) => {
+    try {
+        const token = await getToken();
+        const headers = {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token.toString()}`
+        }
+        const response = await Req.post(
+            'api/content/secretaria-saojoaquim/formulario/', data, {
+            headers
+        });
+        return response;
+    }
+    catch (e) {
+        console.log('error =>', e)
+    }
+}
+

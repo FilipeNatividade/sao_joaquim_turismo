@@ -1,17 +1,17 @@
-.container_cover_slides {
-}
-
-.backgroundOpacity {
-  width: 100%;
-  height: 100vh;
-  background-color: var(--color_belvedere);
-  opacity: 0.4;
-  position: absolute;
-  z-index: 2;
-}
-
 .cover_slides {
-  height: 100%;
+  height: 60vh;
+}
+
+@media (min-width: 500px) {
+  .cover_slides {
+    height: 70vh;
+  }
+}
+
+@media (min-width: 800px) {
+  .cover_slides {
+    height: 85vh;
+  }
 }
 
 .slide_content {
@@ -20,7 +20,7 @@
   justify-content: flex-start;
   align-items: flex-end;
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: center;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -33,7 +33,7 @@
   padding: var(--padding_mobile);
   margin-bottom: var(--gap_mobile);
   font-family: 'Gotham', sans-serif;
-  color: white;
+  color: var(--cor_branca);
 }
 
 @media (min-width: 800px) {

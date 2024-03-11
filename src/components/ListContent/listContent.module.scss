@@ -1,21 +1,19 @@
 .container {
   width: 100%;
   gap: var(--gap_mobile);
+  justify-content: space-between;
   display: flex;
   flex-wrap: wrap;
+box-sizing: border-box;
 }
 
 @media (min-width: 800px) {
   .container {
     gap: var(--gap_tablet);
+
   }
 }
 
-@media (min-width: 1000px) {
-  .container {
-    gap: var(--gap_desktop);
-  }
-}
 
 .content {
   width: 100%;
@@ -28,7 +26,7 @@
 }
 
 .content > h5 {
-  color: #fc9a5d;
+  color: var(--cor_secundaria);
   font-size: 18px;
   text-transform: uppercase;
   margin: 30px 0 20px;
@@ -53,4 +51,13 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.zoom_list {
+  transition: transform 0.2s;
+}
+
+.zoom_list:hover {
+  transform: scale(0.9);
+  margin: 0 auto;
 }

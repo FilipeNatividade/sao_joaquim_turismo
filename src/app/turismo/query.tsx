@@ -1,0 +1,124 @@
+export const QUERY =
+  `
+  query{
+    findPaginaMacroJornadaSingleton{
+      data{
+        banners{
+          iv{
+            banner{
+              preTitulo
+              titulo
+              subTitulo
+              cartao
+              imagem{
+                url
+              }
+            }
+          }
+        }
+        titulo{
+          iv
+        }
+        conteudo{
+          iv
+        }
+      }
+    }
+  }
+    `
+
+
+export const QUERY_AGENCIAS = `
+query{
+  queryServicosContents(filter:"data/categoria/iv eq 'agencias'"){
+    data{
+      nome{
+        iv
+      }
+      categoria{
+        iv
+      }
+      publico{
+        iv
+      }
+      local{
+        iv
+      }
+      link{
+        iv
+      }
+      resumo{
+        iv
+      }
+      resumoImagem{
+        iv{
+          url
+        }
+      }
+      descritivo{
+        iv
+      }
+      detalheConteudo{
+        iv
+      }
+      imagens{
+        iv{
+          url
+        }
+      }
+      slug{
+        iv
+      }
+    }
+  }
+}
+`
+
+export const QUERY_AGENCY = (option: any, params: any) => {
+
+  return `
+  query{
+    queryServicosContents(filter:"data/${option}/iv eq '${params}'"){
+      data{
+        nome{
+          iv
+        }
+        categoria{
+          iv
+        }
+        publico{
+          iv
+        }
+        local{
+          iv
+        }
+        link{
+          iv
+        }
+        resumo{
+          iv
+        }
+        resumoImagem{
+          iv{
+            url
+          }
+        }
+        descritivo{
+          iv
+        }
+        detalheConteudo{
+          iv
+        }
+        imagens{
+          iv{
+            url
+          }
+        }
+        slug{
+          iv
+        }
+      }
+    }
+  }
+  `
+}

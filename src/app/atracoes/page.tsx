@@ -1,72 +1,110 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import ListContent from '@/components/ListContent/layout'
 import S from './lista.module.scss'
 import { CoverSlide } from '@/components/coverSlide/layout'
 import { Enphasis } from '@/components/Enphasis/layout'
 import { Fetcher } from '@/api/server'
-import { QUERY, QUERY_LIST } from './query'
+import { QUERY, QUERY_LIST_ATTRACTIONS } from './query'
 import parse from 'html-react-parser'
+import { Navigation } from '@/components/Navigation/layout'
+import { TitlePage } from '@/components/TitlePage/layout'
+import { useForm, Controller } from 'react-hook-form';
 
-const Page = async ({ params }: any) => {
+const Page = () => {
+    const [data, setData] = useState<any>();
+    const [dataList, setDataList] = useState<any>();
+    const [dataListOriginal, setDataListOriginal] = useState<any>();
+    const { control } = useForm();
 
-    const response = await Fetcher(QUERY)
-    const data = response?.findPaginaAtracoesSingleton?.data
+    const getData = async () => {
+        const response = await Fetcher(QUERY)
+        setData(response?.findPaginaAtracoesSingleton?.data)
+    };
 
-    const responseList = await Fetcher(QUERY_LIST)
-    const dataList = responseList?.queryAtracaoContents
+    const getDataList = async () => {
+        const responseList = await Fetcher(QUERY_LIST_ATTRACTIONS);
+        const dataList = responseList?.queryAtracaoContents;
+        setDataList(dataList);
+        setDataListOriginal(dataList);
+    };
 
-    const publics = ['solteiro', 'casal', 'familia', 'grupo', 'torcida', 'livre']
+    useEffect(() => {
+        getData();
+        getDataList();
+    }, []);
+
+    const handleChange = (selectedValue: string) => {
+        if (selectedValue === '') {
+            setDataList(dataListOriginal);
+        } else {
+            const filteredData = dataListOriginal.filter((item: any) =>
+                item?.data?.publico?.iv.includes(selectedValue)
+            );
+            setDataList(filteredData);
+        }
+    };
+
+    const publics = [
+        'Família',
+        "Amigos",
+        "Grupos",
+        'Sozinho',
+        "A trabalho"
+    ]
 
     return (
-        <div>
+        <main className={S.container} >
             {data?.banners?.iv && <CoverSlide content={data?.banners?.iv} />}
+            <div
+                className={`limited_container ${S.header_box}`}
+            >
+                {data?.titulo?.iv &&
+                    <TitlePage
+                        title={data?.titulo?.iv}
+                    />
+                }
 
-            <main className={`limited_container padding_container  ${S.main}
-`}>
-
-                <div style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between'
-                }}>
-
-                    {data?.titulo?.iv && <h1>
-
-                        {data?.titulo?.iv}
-
-                    </h1>}
-
-                    <select name="" id="" style={{ width: '50%' }} >
-                        {
-                            publics.map((p: any) => (
-                                <option key={p} value={p}>{
-                                    p
-                                }</option>
-                            ))
-                        }
-                    </select>
+            </div>
+            <section className={`limited_container ${S.history_box}`}>
+                <div className={` ${S.text_box}`} >
+                    {data?.subTitulo?.iv && <h3>{data?.subTitulo?.iv}</h3>}
+                    {data?.conteudo?.iv && <div>
+                        {parse(data?.conteudo?.iv)}
+                    </div>}
                 </div>
-
-
-                {params?.categoria && <h3>
-
-                    {
-                        `${params?.categoria?.charAt(0).toUpperCase()}${params?.categoria?.slice(1)}`
-                    }
-
-                </h3>}
-
-                {data?.subTitulo?.iv && parse(data?.subTitulo?.iv)}
-
-                {data?.conteudo?.iv && parse(data?.conteudo?.iv)}
-
-                <ListContent content={dataList} origin='atracoes' categoria={null} />
-
-                <Enphasis />
-
-            </main>
-
-        </div>
+            </section>
+            <div className={`limited_container padding_container ${S.filter_box}`} >
+                <Controller
+                    name="categoria"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                        <select
+                            className={S.select}
+                            value={value}
+                            onChange={(e) => {
+                                onChange(e.target.value);
+                                handleChange(e.target.value);
+                            }}
+                        >
+                            <option value="">Filtro</option>
+                            {publics.map((categoria: string, index: number) => (
+                                <option key={index} value={categoria}>{categoria}</option>
+                            ))}
+                        </select>
+                    )}
+                />
+            </div>
+            {dataList && dataList.length > 0 ? (
+                <ListContent content={dataList} origin='atracoes' categoria={false} />
+            ) : (
+                dataList !== null && dataList !== undefined && dataList.length === 0 && <p className='message_error'>Atração não encontrada para o publico desejado</p>
+            )}
+            <Enphasis />
+            {data?.titulo?.iv && <Navigation local='Atrações' />}
+        </main>
     )
 }
 

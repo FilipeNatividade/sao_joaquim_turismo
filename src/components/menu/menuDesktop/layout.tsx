@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { MenuItem as MenuItemType } from '../types';
@@ -13,6 +13,29 @@ interface SubmenuProps {
 
 const Submenu: React.FC<SubmenuProps> = ({ submenus, label }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  
+
+  useEffect(() => {
+    let isScrollingDown = false;
+
+    const handleScroll = () => {
+      // Verifica se a página foi rolada para baixo
+      if (!isScrollingDown && window.scrollY > 0) {
+        handleClose();
+        isScrollingDown = true;
+      } else if (window.scrollY === 0) {
+        isScrollingDown = false;
+      }
+    };
+
+    // Adiciona um event listener para o evento de rolagem
+    window.addEventListener('scroll', handleScroll);
+
+    // Remove o event listener quando o componente é desmontado
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -21,9 +44,10 @@ const Submenu: React.FC<SubmenuProps> = ({ submenus, label }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
 
   return (
-    <div >
+    <div  className={S.submenu_box}>
       <button
         aria-controls="submenu"
         onClick={handleClick}
@@ -39,11 +63,12 @@ const Submenu: React.FC<SubmenuProps> = ({ submenus, label }) => {
           MenuListProps={{
             'aria-labelledby': 'submenu',
           }}
-          className={S.menu_submenu}>
+          className={S.menu_submenu} >
           {submenus.map((submenu) => (
             <MenuItem
               key={submenu.label}
               onClick={handleClose}
+
             >
               <a href={submenu.rota}
                 className={S.button_submenu}
@@ -64,7 +89,7 @@ interface MenuDesktopProps {
 
 const MenuDesktop = ({ menus }: MenuDesktopProps) => {
   return (
-    <ul className={S.list_style}  >
+    <ul className={S.list_style}>
       {menus.map((item) => (
         <li key={item.label} >
           {item.submenus && item.submenus.length > 0 ? (

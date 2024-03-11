@@ -2,23 +2,25 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  position: absolute;
-  height: max-content;
-  z-index: 5;
-  margin: 0 auto;
-  padding: var(--padding_mobile);
-  padding-top: 50px !important;
+  // position: absolute;
+  // height: max-content;
+  // z-index: 5;
+  // margin: 0 auto;
+  // padding-top: 50px !important;
+  background-color:var(--cor_terciario);
+  padding: var(--gap_mobile);
+  // padding: 50px;x
 }
 
 @media (min-width: 800px) {
   .container {
-    padding: var(--padding_tablet);
+    // padding: var(--padding_tablet);
   }
 }
 
 @media (min-width: 1000px) {
   .container {
-    padding: var(--padding_desktop);
+    // padding: var(--padding_desktop);
   }
 }
 

@@ -5,15 +5,16 @@ export const QUERY = `
                 banners{
                     iv{
                         banner{
-                            cartao
-                            imagem{
-                                url
-                            }
-                            subTitulo
-                            titulo
+                          preTitulo
+                          titulo
+                          subTitulo
+                          cartao
+                          imagem{
+                            url
+                          }
                         }
                     }
-                }
+                  }
                 conteudo{
                     iv
                 }
@@ -28,11 +29,10 @@ export const QUERY = `
     }
 `
 
-export const QUERY_LIST = `
+export const QUERY_LIST_ATTRACTIONS= `
 query{
     queryAtracaoContents{
         data{
-          
             categoria{
                 iv
             }

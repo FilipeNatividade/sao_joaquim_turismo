@@ -1,0 +1,29 @@
+export const QUERY = `
+query{
+    findConfiguracaoSingleton{
+      data{
+        logoPrincipal{
+          iv{
+            url
+          }
+        }
+        logoRodape{
+          iv{
+            url
+          }
+        }
+        social{
+          iv{
+            facebook
+            instagram
+            youtube
+            telefone
+            email
+            endereco
+            whatsApp
+          }
+        }
+      }
+    }
+  }
+`

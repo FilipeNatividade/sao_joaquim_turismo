@@ -1,5 +1,5 @@
 .container {
-  background-color: #fbf4ec;
+  background-color: var(--cor_terciario);
   text-align: center;
 }
 
@@ -16,7 +16,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    // gap: var(--gap_tablet);
   }
 }
 
@@ -30,7 +29,7 @@
 .section {
   width: max-content;
   align-self: center;
-  color: var(--color_florada_clarinho);
+  color: var(--cor_branca);
 }
 
 .img_box {
@@ -86,20 +85,39 @@
 .info {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background-color: #fc9a5d;
+  gap: 5px;
+  background-color: var(--cor_secundaria);
   padding: 20px 30px;
-  border-radius: 30px;
   height: 250px;
   justify-content: center;
   width: 305px;
+  box-sizing: border-box !important;
 }
 
+.line_info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.line_info > p {
+  width: 100%;
+  word-break: break-all;
+  text-align: left;
+  font-weight: bold;
+  font-size: 14;
+}
+.line_info > span {
+  display: block;
+  word-break: normal;
+  text-align: left;
+  margin-top: -12px;
+}
 .info > p {
   width: fit-content;
   font-weight: bold;
-  font-size: 18px;
-  text-align: center;
+  font-size: 16px;
+  word-break: normal;
 }
 
 .info > .medias {
@@ -115,7 +133,7 @@
   }
 }
 
-.info > .medias > svg{
+.info > .medias > a > svg {
   font-size: 35px;
 }
 
@@ -157,28 +175,27 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: #9e1619;
+    background-color: var(--cor_primaria);
     max-width: 350px;
     padding: 20px 30px;
-    border-radius: 30px;
     height: 250px;
   }
 }
 
 .btn_box > h3 {
-  color: #800000;
+  color: var(--cor_primaria);
   font-size: 16px;
 }
 
 @media (min-width: 800px) {
   .btn_box > h3 {
-    color: #fff;
+    color: var(--cor_branca);
   }
 }
 
 .section > .btn_contact {
-  background-color: #9e1619;
-  color: #fff;
+  background-color: var(--cor_primaria);
+  color: var(--cor_branca);
   border-radius: 36px;
   font-size: 16px;
   font-weight: bold;
@@ -191,13 +208,13 @@
 
 @media (min-width: 800px) {
   .section > .btn_contact {
-    background-color: #fc9a5d;
+    background-color: var(--cor_secundaria);
   }
 }
 
 .container > .reserved {
-  background-color: #fc9a5d;
-  color: #fff;
+  background-color: var(--cor_secundaria);
+  color: var(--cor_branca);
   padding: 14px;
   width: 100%;
   display: flex;
@@ -208,7 +225,7 @@
 }
 
 .top_btn {
-  background-color: #fbf4ec;
+  background-color: var(--cor_terciario);
   border-radius: 50%;
   margin-top: -30px;
   position: absolute;
@@ -223,5 +240,5 @@
 
 .top_btn > svg {
   font-size: 64px;
-  color: #9e1619;
+  color: var(--cor_primaria);
 }

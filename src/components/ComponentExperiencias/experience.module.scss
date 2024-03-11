@@ -1,0 +1,16 @@
+.container_expirence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap_mobile);
+}
+
+@media (min-width: 800px) {
+  .container_expirence {
+    gap: var(--gap_tablet);
+  }
+}
+
+.slide_container {
+  width: 100%;
+  padding: 0;
+}
